@@ -1,0 +1,27 @@
+package org.WSDL2JavaMap.test.samples
+
+/**
+ * Sample object with primitive/String and List entries
+ */
+class Order extends LinkedHashMap {
+    //synthetic fields
+    private static final String ID = "id"
+    //private static final String OPTIONS = "option"  //List<Option>
+    private static final String OPTION = "option"
+
+    void setId(String id) { put(ID, id) }
+    String getId() { return get(ID) as String }
+
+    List<Option> getOptions() {
+        List<Option> options = get(OPTIONS) as List<Option>
+        if (options == null) {
+            options = new ArrayList<Option>()
+            put(OPTIONS, options)
+        }
+        return options
+    }
+    //instead of exposing setOptions, offer addOption as fast access
+    boolean addOption(Option option) {
+        return getOptions().add(option)
+    }
+}
